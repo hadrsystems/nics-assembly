@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2008-2015, Massachusetts Institute of Technology (MIT)
+    All rights reserved.
+
+    Redistribution and use in source and binary forms, with or without
+    modification, are permitted provided that the following conditions are met:
+
+    1. Redistributions of source code must retain the above copyright notice, this
+    list of conditions and the following disclaimer.
+
+    2. Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+
+    3. Neither the name of the copyright holder nor the names of its contributors
+    may be used to endorse or promote products derived from this software without
+    specific prior written permission.
+
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+    AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+    IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+    DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+    FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+    DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+    SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+    CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+    OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+    OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+-->
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
+  <id>deployable</id>
+  <formats>
+    <format>tar.gz</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <fileSets>
+  	
+  	<fileSet>
+		<directory>src/main/config/spring</directory>
+		<outputDirectory>${project.artifactId}-${project.version}/config/spring</outputDirectory>
+		<includes>
+			<include>${project.artifactId}.xml</include>
+			<include>${project.artifactId}.xml.*</include>
+		</includes>
+	</fileSet>
+
+    <fileSet>
+        <directory>src/main/config</directory>
+		<outputDirectory>${project.artifactId}-${project.version}/config</outputDirectory>
+        <includes>
+            <include>*.properties</include>
+            <include>*.properties.*</include>
+            <include>*.xslt</include>
+			<include>*</include>
+        </includes>
+	</fileSet>
+
+    <fileSet>
+        <directory>src/main/scripts</directory>
+		<outputDirectory>${project.artifactId}-${project.version}</outputDirectory>
+        <includes>
+            <include>start.sh</include>
+            <!-- Include all for now until it's standardized? Standardizing now, so only include start.sh            
+            <include>runSpring.sh</include>
+			<include>*</include>
+			-->
+        </includes>
+		<fileMode>0766</fileMode>
+	</fileSet>
+
+    <fileSet>
+        <directory>target/dependencies</directory>
+		<outputDirectory>${project.artifactId}-${project.version}/lib</outputDirectory>
+        <includes>
+            <include>*.jar</include>
+        </includes>
+    </fileSet>
+
+    <fileSet>
+        <directory>target</directory>
+		<outputDirectory>${project.artifactId}-${project.version}/lib</outputDirectory>
+        <includes>        	 
+            <include>${project.artifactId}-${project.version}.jar</include>
+            <!-- <include>*.jar</include> could use this as catch all, in case of jar-with-dependencies
+            	but I think we want to move away from using that -->
+        </includes>
+    </fileSet>
+        
+    <!-- Create an empty directory in the tar for logs -->
+    <fileSet>
+    	<!-- NOTE: this depends on this folder having no subfolders!! It'll include anything beneath it-->
+    	<directory>src/main/scripts</directory> 
+    	<outputDirectory>${project.artifactId}-${project.version}/logs</outputDirectory>
+    	<excludes>
+    		<exclude>*</exclude>
+    	</excludes>
+    </fileSet>
+    
+    <!-- Create a directory in the tar for data -->
+    <fileSet>
+    	<!-- NOTE: this depends on this folder having no subfolders!! It'll include anything beneath it-->
+    	<directory>src/main/data</directory> 
+    	<outputDirectory>${project.artifactId}-${project.version}/data</outputDirectory>
+    	<includes>
+            <!-- Do we want include everything? -->
+            <include>*</include>
+        </includes>
+    </fileSet>    
+    
+  </fileSets>
+
+</assembly>
