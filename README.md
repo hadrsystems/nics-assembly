@@ -1,4 +1,7 @@
-nics-assembly
-=============
+## Synopsis 
 
-Tools used to build NICS components 
+nics-assembly provides tools used to build NICS components
+
+## Building
+
+    mvn install
