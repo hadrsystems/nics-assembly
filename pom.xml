@@ -39,7 +39,7 @@
 	<groupId>edu.mit.ll.nics.assembly</groupId>
 	<artifactId>master-pom</artifactId>
 	<packaging>pom</packaging>
-	<version>6.1</version>
+	<version>6.1.1</version>
 
 	<!-- Project information -->
 	<name>NICS Build Tools</name>
@@ -52,7 +52,6 @@
 	</modules>
 
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<license.plugin.version>1.9.0</license.plugin.version>
 	</properties>
 
