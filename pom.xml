@@ -39,7 +39,7 @@
 	<groupId>edu.mit.ll.nics.assembly</groupId>
 	<artifactId>master-pom</artifactId>
 	<packaging>pom</packaging>
-	<version>6.2</version>
+	<version>6.3</version>
 
 	<!-- Project information -->
 	<name>NICS Build Tools</name>
